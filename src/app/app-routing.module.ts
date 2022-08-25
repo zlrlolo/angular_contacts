@@ -6,7 +6,7 @@ import {ContactListComponent} from "./contact-list/contact-list.component";
 import {SigninComponent} from "./signin/signin.component";
 import {SignupComponent} from "./signup/signup.component";
 import {ContactEditComponent} from "./contact-edit/contact-edit.component";
-
+import {AuthGuard} from "./auth-guard.sevice";
 
 const routes: Routes = [
   {
@@ -16,11 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'layout',
-    component: LayoutComponent
+    component: LayoutComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: 'contacts',
     component: LayoutComponent,
+    canActivate:[AuthGuard],
     children: [{
       path: '',
       component: ContactListComponent
@@ -45,7 +47,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthGuard]
 })
 export class AppRoutingModule {
 }

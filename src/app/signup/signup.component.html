@@ -23,6 +23,7 @@
         Invalid Email.
       </div>
     </div>
+    <div *ngIf="email_err_msg" class="alert alert-danger">{{email_err_msg}}</div>
     <label for="inputPassword" class="sr-only">Password</label>
     <input
       type="password"
