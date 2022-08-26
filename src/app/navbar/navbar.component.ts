@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http'
+import {Router} from '@angular/router'
+
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +9,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  user = JSON.parse(window.localStorage.getItem('user_info') || '{}')
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
   }
 
+  signout(e:any) {
+    e.preventDefault()
+    this.http.delete('http://localhost:3000/session')
+      .toPromise()
+      .then(data => {
+        window.localStorage.removeItem('auth_token')
+         this.router.navigate(['/signin'])
+      })
+      .catch(err => {
+        window.alert('退出失败，请稍后再试')
+      })
+  }
 }

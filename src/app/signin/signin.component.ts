@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
       .toPromise()
       .then((data: any) => {
         window.localStorage.setItem('auth_token', data.token)
-        // window.localStorage.setItem('user_info', JSON.stringify(data.user))
+        window.localStorage.setItem('user_info', JSON.stringify(data.user))
         this.router.navigate(['/'])
       })
       .catch(err => {
