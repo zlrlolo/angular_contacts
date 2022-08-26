@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-contact-list',
@@ -9,7 +10,8 @@ import {Router} from "@angular/router";
 export class ContactListComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+  private http: HttpClient
   ) {
   }
 
@@ -18,6 +20,16 @@ export class ContactListComponent implements OnInit {
     // if (!token) {
     //   this.router.navigate(['/signup'])
     // }
+    this.http.get('http://localhost:3000/session')
+
+      .toPromise()
+      .then(data => {
+        // window.localStorage.removeItem('auth_token')
+        // this.router.navigate(['/signin'])
+      })
+      .catch(err => {
+        // window.alert('退出失败，请稍后再试')
+      })
   }
 
 }

@@ -14,7 +14,9 @@ import {TagNewComponent} from './tag-new/tag-new.component';
 import {TagEditComponent} from './tag-edit/tag-edit.component';
 import {LayoutComponent} from './layout/layout.component';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {GolbalInterceptor} from "./global.interceptor";
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {HttpClientModule} from "@angular/common/http";
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: GolbalInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
