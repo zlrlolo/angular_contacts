@@ -36,6 +36,7 @@ export class SigninComponent implements OnInit {
     // 3. 发起 http 请求和服务端交互
     // 4. 根据响应结果做交互处理
     const formData = this.signinForm
+    console.log(formData)
     this.http.post('http://localhost:3000/session', this.signinForm)
       .toPromise()
       .then((data: any) => {
@@ -46,6 +47,8 @@ export class SigninComponent implements OnInit {
       .catch(err => {
         if (err.status === 401) {
           this.err_msg = '登录失败，邮箱或者密码错误.'
+        }else {
+          console.log(err)
         }
       })
   }

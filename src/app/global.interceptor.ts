@@ -8,7 +8,13 @@ import {Observable} from 'rxjs';
 export class GolbalInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
-    console.log('生效了')
-    return next.handle(req);
+    // Clone the request and set the new header in one step.
+    const token = window.localStorage.getItem('auth_token')
+    const authReq = req.clone({
+      headers: req.headers.set('X-Access-Token', token||'')
+    });
+    return next.handle(authReq);
   }
 }
+
+

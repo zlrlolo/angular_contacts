@@ -8,29 +8,44 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
+  public contacts: any
 
   constructor(
     private router: Router,
-  private http: HttpClient
+    private http: HttpClient
   ) {
   }
 
   ngOnInit(): void {
-    // const token = window.localStorage.getItem('auth_token')
-    // if (!token) {
-    //   this.router.navigate(['/signup'])
-    // }
-    this.http.get('http://localhost:3000/session')
+    this.getContacts()
+  }
 
+  getContacts() {
+    this.http.get('http://localhost:3000/contacts')
+      // })
       .toPromise()
       .then(data => {
-        // window.localStorage.removeItem('auth_token')
-        // this.router.navigate(['/signin'])
+        this.contacts = data
+        // console.log(data)
       })
       .catch(err => {
-        // window.alert('退出失败，请稍后再试')
+        console.log(err)
       })
   }
 
+  deleteContactById(e: any, id: number) {
+    e.preventDefault()
+    if (!window.confirm('确定删除吗？')) {
+      return
+    }
+    this.http.delete(`http://localhost:3000/contacts/${id}`)
+      .toPromise()
+      .then(data => {
+        this.getContacts()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
