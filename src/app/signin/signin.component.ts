@@ -45,7 +45,7 @@ export class SigninComponent implements OnInit {
       })
       .catch(err => {
         if (err.status === 401) {
-          this.err_msg = '登录失败，邮箱或者密码错误'
+          this.err_msg = '登录失败，邮箱或者密码错误.'
         }
       })
   }
