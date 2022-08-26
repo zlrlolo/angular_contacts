@@ -23,7 +23,7 @@
         Invalid Email.
       </div>
     </div>
-    <div *ngIf="email_err_msg" class="alert alert-danger">{{email_err_msg}}</div>
+    <div *ngIf="err_msg" class="alert alert-danger">{{err_msg}}</div>
     <label for="inputPassword" class="sr-only">Password</label>
     <input
       type="password"
@@ -45,6 +45,7 @@
       <div *ngIf="password.errors?.['minlength']">
         Name must be at least 4 characters long.
       </div>
+      <div class="alert alert-danger">{{err_msg}}</div>
     </div>
     <button [disabled]="!aaa.valid"
             class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

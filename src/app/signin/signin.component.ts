@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
     password: ''
   }
 
-  email_err_msg = ''
+  err_msg = ''
 
   // 在组件类中声明了一个私有成员 http 它的类型是 HttpClient
   // 那么 Angular 会自动去实例化 HttpClient 得到一个实例
@@ -30,23 +30,22 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
 
-  signup() {
+  signin() {
     // 1. 表单验证
     // 2. 获取表单数据
     // 3. 发起 http 请求和服务端交互
     // 4. 根据响应结果做交互处理
     const formData = this.signinForm
-    this.http.post('http://localhost:3000/users', formData)
+    this.http.post('http://localhost:3000/session', this.signinForm)
       .toPromise()
       .then((data: any) => {
-        this.email_err_msg = ''
         window.localStorage.setItem('auth_token', data.token)
-        window.localStorage.setItem('user_info', JSON.stringify(data.user))
+        // window.localStorage.setItem('user_info', JSON.stringify(data.user))
         this.router.navigate(['/'])
       })
       .catch(err => {
-        if (err.status === 409) {
-          this.email_err_msg = '邮箱已被占用'
+        if (err.status === 401) {
+          this.err_msg = '登录失败，邮箱或者密码错误'
         }
       })
   }
