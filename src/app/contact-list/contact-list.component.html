@@ -26,13 +26,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of contacts; let id=index" >
+    <tr *ngFor="let item of contacts" >
       <td>{{item.name}}</td>
       <td>{{item.email}}</td>
       <td>{{item.phone}}</td>
       <td><span class="label label-info">朋友</span></td>
       <td>
-        <a href="edit.html">编辑</a>
+        <a [routerLink]="['/contacts/edit',item.id]" >编辑</a>
         <a (click)="deleteContactById($event,item.id)" href="#">删除</a>
       </td>
     </tr>
